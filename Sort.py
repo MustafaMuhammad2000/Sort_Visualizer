@@ -1,9 +1,10 @@
 import Visualizer
 import random
 class Sort:
-    def __init__(self,id):
-        self.array = random.sample(range(50),50) #Random array of size X
+    def __init__(self,id,numofvalues,speed):
+        self.array = random.sample(range(numofvalues),numofvalues) #Random array of size X
         self.id = id # ID used to pick sorting algorithim
+        self.speed = speed # Speed of sorts
 
     def start_sort(self):
         if self.id == 1:
@@ -26,7 +27,7 @@ class Sort:
         for i in range(len(array)):
             for j in range(0, len(array) - i - 1):
                 if array[j] > array[j + 1]:
-                    Visualizer.update_screen(array, "Bubble Sort", j, j+1)
+                    Visualizer.update_screen(array, "Bubble Sort", self.speed, j, j+1)
                     array[j], array[j + 1] = array[j + 1], array[j]
 
 
@@ -40,7 +41,7 @@ class Sort:
             for j in range(i+1, len(array)):
                 if array[j] < array[minimum]:
                     minimum = j
-            Visualizer.update_screen(array, "Selection sort", i, minimum)
+            Visualizer.update_screen(array, "Selection sort",self.speed, i, minimum)
             array[i], array[minimum] = array[minimum], array[i]
 
 
@@ -56,7 +57,7 @@ class Sort:
             while sPart >= 0 and curr < array[sPart]:
                 array[sPart+1] = array[sPart]
                 sPart = sPart-1
-            Visualizer.update_screen(array, "Insertion sort", sPart, i)
+            Visualizer.update_screen(array, "Insertion sort",self.speed, sPart, i)
             array[sPart+1] = curr
 
 
@@ -87,23 +88,23 @@ class Sort:
         # until we run out of elements in one array
         while left_copy_index < len(left_copy) and right_copy_index < len(right_copy):
             if left_copy[left_copy_index] <= right_copy[right_copy_index]:
-                Visualizer.update_screen(array, "Merge sort", sorted_index, left_copy_index)
+                Visualizer.update_screen(array, "Merge sort",self.speed, sorted_index, left_copy_index)
                 array[sorted_index] = left_copy[left_copy_index]
                 left_copy_index = left_copy_index + 1
             else:
-                Visualizer.update_screen(array, "Merge sort", sorted_index, right_copy_index)
+                Visualizer.update_screen(array, "Merge sort",self.speed, sorted_index, right_copy_index)
                 array[sorted_index] = right_copy[right_copy_index]
                 right_copy_index = right_copy_index + 1
             sorted_index = sorted_index+1
         # Either ran out of elements in left or right array
         # Need to while loops to fill in whichever array has remaining elements
         while left_copy_index < len(left_copy):
-            Visualizer.update_screen(array, "Merge sort", sorted_index, left_copy_index)
+            Visualizer.update_screen(array, "Merge sort",self.speed, sorted_index, left_copy_index)
             array[sorted_index] = left_copy[left_copy_index]
             left_copy_index = left_copy_index + 1
             sorted_index = sorted_index + 1
         while right_copy_index < len(right_copy):
-           Visualizer.update_screen(array, "Merge sort", sorted_index, right_copy_index)
+           Visualizer.update_screen(array, "Merge sort",self.speed, sorted_index, right_copy_index)
            array[sorted_index] = right_copy[right_copy_index]
            right_copy_index = right_copy_index + 1
            sorted_index = sorted_index + 1
@@ -131,7 +132,7 @@ class Sort:
             # then shift low index up
             if array[j] < pivot:
                 i += 1
-                Visualizer.update_screen(array, "Quick Sort", i, j)
+                Visualizer.update_screen(array, "Quick Sort",self.speed, i, j)
                 array[i], array[j] = array[j], array[i]
         array[i+1], array[high] = array[high], array[i+1]
         return i+1
